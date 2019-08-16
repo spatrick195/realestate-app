@@ -1,0 +1,57 @@
+
+
+.card{
+    max-width: 18rem;
+    margin-top: 10px;
+}
+
+.list-group{
+    margin-top: 10px;
+}
+
+.fas.fa-map-marker{
+    color:#007bff;
+    padding-right:10px;
+}
+
+.fas.fa-road{
+    color:#007bff;
+    padding-right: 5px;
+}
+.text-card{
+    font-weight: 400;
+    font-size: 22px;
+}
+
+.button{
+    width:100%;
+    margin-top: 10px;
+}
+
+.grid-container{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.footer{
+    position: absolute; 
+    left: 0 ; right: 0; bottom: 0; 
+    height: 100px;
+
+}
+
+@media only screen and (max-width: 536px) {
+  .card {
+    max-width: 487px; 
+  }
+}
+
+
+@media only screen and (max-width: 536px) {
+  .footer {
+    position: relative; 
+    height: 50px;
+  }
+}
+

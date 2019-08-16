@@ -1,0 +1,23 @@
+extends main_layout.pug
+block body-content
+    .container-fluid
+        .row
+            .col-lg-2
+                ul.list-group
+                    each val in [1, 2, 3]
+                        li.list-group-item
+                            .fas.fa-home.text-primary.p-2
+                            | Item 1
+            .col-lg-10
+                div.grid-container
+                    each val in [1, 2, 3, 4, 5, 6, 7 , 8 , 9 , 10, 11, 12]
+                        .card
+                            img.card-img-top(src="https://via.placeholder.com/320x230" alt="Card image cap")
+                            .card-body
+                                .card-title.fas.fa-map-marker
+                                span.h5.text-card Suburb
+                                br
+                                p.card-text.fas.fa-road
+                                span Address
+                                br
+                                a.btn.btn-primary.button(href="/") More...
