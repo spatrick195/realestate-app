@@ -4,20 +4,58 @@ block body-content
         .row
             .col-lg-2
                 ul.list-group
-                    each val in [1, 2, 3]
+                    each suburb in suburbs
                         li.list-group-item
-                            .fas.fa-home.text-primary.p-2
-                            | Item 1
+                            i.fas.fa-road
+                            a(href="/" + suburb.suburb)= suburb.suburb
             .col-lg-10
                 div.grid-container
-                    each val in [1, 2, 3, 4, 5, 6, 7 , 8 , 9 , 10, 11, 12]
+                    each suburb in suburbs
                         .card
-                            img.card-img-top(src="https://via.placeholder.com/320x230" alt="Card image cap")
+
+                            img.card-img-top(src="images/houses/a1.jpg" alt="Card image cap")
                             .card-body
                                 .card-title.fas.fa-map-marker
-                                span.h5.text-card Suburb
+                                span=suburb.suburb
                                 br
                                 p.card-text.fas.fa-road
-                                span Address
+                                span ...  
                                 br
-                                a.btn.btn-primary.button(href="/") More...
+                                a.btn.btn-primary.btn-block(type='button' data-toggle='modal' data-target='house-modal') More...
+                        #housemodal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='housemodalTitle' aria-hidden='true')
+                            .modal-dialog.modal-dialog-centered(role='document')
+                                .modal-content
+                                    .modal-header
+                                        img.image_modal(src="" width='100%')
+                                    .modal-body
+                                    .modal-footer
+                                        button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                br
+                ul.pagination
+                    if currentPage === 1
+                        li.page-item.disabled
+                            a.page-link(href='/' tabindex='-1') Previous
+                    else
+                        li.page-item
+                            if suburb == null
+                                a.page-link(href='/' + (currentPage - 1) tabindex='-1') Previous
+                            else
+                                a.page-link(href='/' + suburb + '/' + (currentPage - 1) tabindex='-1') Previous
+                    li.page-item.disabled
+                        a.page-link(href='#')
+                            =currentPage
+                            |  of 
+                            =totalPages
+                    if currentPage === totalPages
+                        li.page-item.disabled
+                            a.page-link(href='/') Next
+                    else
+                        li.page-item
+                            if suburb === null
+                                -var count= currentPage
+                                -count++
+                                a.page-link(href= '/' + count) Next
+                            else
+                                -var count= currentPage
+                                -count++
+                                a.page-link(href= page + 1 ) Next
