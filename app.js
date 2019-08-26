@@ -20,61 +20,49 @@ app.get('/:suburb?/:page?', (req, res) => {
     let limit = 12;
     let offset;
 
-    if (page == 1) {
+    if (page === 1) {
         offset = 1;
-    } else {
+    }
+    else {
         offset = (page - 1) * limit + 1;
     }
 
     let sqlSuburbs = "SELECT DISTINCT suburb FROM properties ORDER BY suburb";
-    let sqlProperties = "SELECT * FROM WHERE suburb = ?";
-    let sqlCountPlaceholder = [suburb];
+    let sqlProperties = "SELECT * FROM properties WHERE suburb = ?";
     let sqlCount = "SELECT COUNT(*) AS 'count' FROM properties WHERE suburb = ?";
     let placeholders = [suburb, limit, offset];
+    let suburbPlaceholder = [suburb];
 
-    if (+suburb == parseInt(suburb)) {
+    if (+suburb === parseInt(suburb)) {
         page = suburb;
         suburb = "";
         offset = (page - 1) * limit + 1;
         sqlProperties = "SELECT * FROM properties";
         placeholders = [limit, offset];
-        sqlCount = "SELECT COUNT(*) AS 'count' FROM properties ORDER BY ?";
-        sqlCountPlaceholder = [suburb];
+        sqlCount = "SELECT COUNT (*) AS 'count' FROM properties ORDER BY ?";
+        suburbPlaceholder = [suburb];
     }
 
-    else if (suburb === undefined) {
+    if (suburb === undefined) {
         sqlProperties = "SELECT * FROM properties";
-        sqlCount = "SELECT COUNT(*) AS 'count' FROM properties ORDER BY ?";
+        sqlCount = "SELECT COUNT (*) AS 'count' FROM properties ORDER BY ?";
         placeholders = [limit, offset];
-        sqlCountPlaceholder = ['suburb'];
+        suburbPlaceholder = ['suburb'];
         suburb = "";
     }
-    else {
-        sqlProperties = "SELECT * FROM properties where suburb = '" + suburb + "'";
-        sqlCount = "SELECT COUNT(*) AS 'count' FROM properties where suburb = '" + suburb + "' ORDER BY ?";
-        placeholders = [limit, offset];
-        sqlCountPlaceholder = [suburb];
-    }
 
-    conn.query(sqlSuburbs, (err, suburb_result) => {
-        if (err) throw err
-        // Get the properties
+    conn.query(sqlSuburbs, (err, subrub_result) => {
+        //Get Properties
         conn.query(sqlProperties + " LIMIT ? OFFSET ?", placeholders, (err, properties_result) => {
-            if (err) throw err
-            // Get the query record count
-            conn.query(sqlCount, sqlCountPlaceholder, (err, record_count) => {
-                var totalPages = Math.ceil(record_count[0].count / limit);
-                if (err) throw err
-                //Display the page and provide it with values
-                res.render("index", {
-                    title: 'Home Page',
-                    suburbs: suburb_result,
+            //Get Record Count
+            conn.query(sqlCount, suburbPlaceholder, (err, record_count) => {
+                // render the page
+                res.render('index', {
+                    title: "Home",
+                    suburbs: subrub_result,
                     properties: properties_result,
                     currentPage: page,
-                    // set next property to a ternary statement that increases/decreases page value
-                    next: page + 1 > totalPages ? totalPages : page + 1,
-                    prev: page - 1 >= 1 ? page - 1 : 1,
-                    totalPages: totalPages,
+                    totalPages: Math.ceil(record_count[0].count / limit),
                     suburb: suburb
                 });
             });

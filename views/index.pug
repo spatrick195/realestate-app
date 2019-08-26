@@ -10,52 +10,48 @@ block body-content
                             a(href="/" + suburb.suburb)= suburb.suburb
             .col-lg-10
                 div.grid-container
-                    each suburb in suburbs
+                    each house in properties
                         .card
 
-                            img.card-img-top(src="images/houses/a1.jpg" alt="Card image cap")
+                            img.card-img-top(src="images/houses/" + house.image_name alt="Card image cap")
                             .card-body
                                 .card-title.fas.fa-map-marker
-                                span=suburb.suburb
+                                span=house.suburb
                                 br
                                 p.card-text.fas.fa-road
-                                span ...  
+                                span=house.address
                                 br
-                                a.btn.btn-primary.btn-block(type='button' data-toggle='modal' data-target='house-modal') More...
-                        #housemodal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='housemodalTitle' aria-hidden='true')
-                            .modal-dialog.modal-dialog-centered(role='document')
-                                .modal-content
-                                    .modal-header
-                                        img.image_modal(src="" width='100%')
-                                    .modal-body
-                                    .modal-footer
-                                        button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+                                button.btn.btn-primary.btn-block(type='button', data-toggle='modal', data-target='#houseModal', data-id=house.id) More Info
+
+                                #houseModal.modal.fade(tab-index='-1', role='dialog', aria-labelledby="housemodalTitle", aria-hidden='true')
+                                    .modal-dialog.modal-dialog-centered(role='document')
+                                        .modal-content
+                                            .modal-header
+                                                img.image_modal(src="images/houses/" + house.image_name width='100%')
+                                            .modal-body
+                                                p.description= house.description
+                                            .modal-footer
+                                                button.btn.btn-danger(type='button', data-dismiss='modal') Close           
                 br
                 ul.pagination
-                    if currentPage === 1
+                    if (currentPage === 1)
                         li.page-item.disabled
-                            a.page-link(href='/' tabindex='-1') Previous
+                            a.page-link(href='/') Previous
                     else
                         li.page-item
-                            if suburb == null
-                                a.page-link(href='/' + (currentPage - 1) tabindex='-1') Previous
-                            else
-                                a.page-link(href='/' + suburb + '/' + (currentPage - 1) tabindex='-1') Previous
+                            a.page-link(href='/' + (currentPage - 1)) Previous
+
                     li.page-item.disabled
-                        a.page-link(href='#')
+                        a.page-link
                             =currentPage
                             |  of 
                             =totalPages
-                    if currentPage === totalPages
+
+                    if (currentPage === totalPages)
                         li.page-item.disabled
                             a.page-link(href='/') Next
                     else
-                        li.page-item
-                            if suburb === null
-                                -var count= currentPage
-                                -count++
-                                a.page-link(href= '/' + count) Next
-                            else
-                                -var count= currentPage
-                                -count++
-                                a.page-link(href= page + 1 ) Next
+                        -var count= currentPage
+                        -count++
+                        a.page-link(href='/' + count) Next
+
