@@ -21,17 +21,17 @@ block body-content
                                 p.card-text.fas.fa-road
                                 span=house.address
                                 br
-                                button.btn.btn-primary.btn-block(type='button', data-toggle='modal', data-target='#houseModal', data-id=house.id) More Info
+                                button.btn.btn-primary.btn-block(type='button' data-toggle='modal' data-target='#houseModal', data-id=house.address) More Info
 
-                                #houseModal.modal.fade(tab-index='-1', role='dialog', aria-labelledby="housemodalTitle", aria-hidden='true')
-                                    .modal-dialog.modal-dialog-centered(role='document')
-                                        .modal-content
-                                            .modal-header
-                                                img.image_modal(src="images/houses/" + house.image_name width='100%')
-                                            .modal-body
-                                                p.description= house.description
-                                            .modal-footer
-                                                button.btn.btn-danger(type='button', data-dismiss='modal') Close           
+                            #houseModal.modal.fade(tab-index='-1' role='dialog' aria-labelledby="housemodalTitle" aria-hidden='true')
+                                .modal-dialog.modal-dialog-centered(role='document')
+                                    .modal-content
+                                        .modal-header
+                                            img.image_modal(src="images/houses/" + house.image_name width='100%')
+                                        .modal-body
+                                            p.description= house.description
+                                        .modal-footer
+                                            button.btn.btn-danger(type='button' data-dismiss='modal') Close           
                 br
                 ul.pagination
                     if (currentPage === 1)

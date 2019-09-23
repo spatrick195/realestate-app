@@ -1,0 +1,14 @@
+extends admin_layout.pug
+block content-admin
+    .container-fluid
+        .row
+            .col-lg-2
+                ul.list-group
+                    li.list-group-item
+                        i.fas.fa-road
+                        a(href='/admin/user/dashboard') User Dashboard
+                    li.list-group-item
+                        i.fas.fa-upload
+                        a(href='/admin/user/file-uploads') File Uploads
+            .col-lg-10
+                h1.text-danger User Dashboard

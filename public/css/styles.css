@@ -1,4 +1,6 @@
-
+.navbar{
+  border-bottom:0.1px solid lightgrey;
+}
 
 .card{
     max-width: 18rem;
@@ -15,12 +17,8 @@
     margin-top: 10px;
 }
 
-.fas.fa-map-marker{
-    color:#007bff;
-    padding-right:10px;
-}
 
-.fas.fa-road{
+.fas.fa-road, .fas.fa-map-marker, .fas.fa-upload{
     color:#007bff;
     padding-right: 5px;
 }
